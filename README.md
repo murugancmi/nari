@@ -9,6 +9,25 @@ NARI Provides complete Scalable and easy to use API for Browser,Mobile,Desktop a
 4. One-to-One Filesharing
 5. Scalable server (Multi Datacenter)
 
+
+
+### Get Started
+
+#### Installation
+Installing NARI is quite a simple experience. we recommend Debian/Ubuntu Operating Systems.
+
+On Debian/Ubuntu systems,Install required package NodeJS and NPM:
+
+```shell
+sudo apt-get install nodejs git npm nodejs-legacy
+git clone https://github.com/murugancmi/nari.git
+cd nari
+npm install
+grunt 
+```
+
+
 ### Developer Documnet
 #### [Browser SDK ](https://github.com/murugancmi/nari/wiki/browser)
 #### [Scalable Server ](https://github.com/murugancmi/nari/wiki/server)
+
