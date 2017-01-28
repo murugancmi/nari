@@ -7,4 +7,4 @@ NARI Provides complete Scalable and easy to use API for Browser,Mobile,Desktop a
 2. One-to-One Audio Call
 3. One-to-One Chat
 4. One-to-One Filesharing
-5. Scallable server (Multiple Datacenter)
+5. Scalable server (Multiple Datacenter)
