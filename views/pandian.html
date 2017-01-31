@@ -1,0 +1,85 @@
+<html>
+<head>
+  <title>
+    Pandian
+  </title>
+  <script src="js/socket.io.js"></script>
+  <script src="js/cmiRTC.js"></script>
+  <script src="js/cmiChannel.js"></script>
+  <script>
+     var telecmi=new cmiRTC();
+     telecmi.onFire=function(event)
+     {
+          console.error(event)
+     }
+
+     telecmi.onRTC=function(event)
+     {
+
+     }
+
+telecmi.ondatachannel=function(event)
+{
+  console.log(event)
+}
+
+telecmi.onMSG=function(data)
+{
+  console.error(data)
+}
+
+
+     telecmi.onlocalstream=function(stream)
+     {
+
+     }
+
+
+     telecmi.onremotestream=function(stream)
+     {
+
+       var remote=document.getElementById('remote')
+       var src=URL.createObjectURL(stream.stream);
+       remote.src=src;
+     }
+     function call()
+     {
+
+       telecmi.videoCall('murugan');
+     }
+
+     function datacall()
+     {
+
+       telecmi.dataCall('murugan');
+     }
+
+
+    function vt()
+    {
+      telecmi.videotoggle();
+    }
+    function at()
+    {
+      telecmi.audiotoggle();
+    }
+
+    function send()
+    {
+      telecmi.sendMSG({name:'Murugan',year:'2016'})
+    }
+
+telecmi.register('pandian')
+
+  </script>
+</head>
+<body>
+  <video id="local" muted="true" autoplay="true"></video>
+  <button onclick="call()">Audio Call</button>
+  <button onclick="datacall()">data Call</button>
+  <button onclick="send()">Send</button>
+  <button onclick="vt()">VT</button>
+  <button onclick="at()">AT</button>
+  <video id="remote" autoplay="true"></video>
+</body>
+</html>
