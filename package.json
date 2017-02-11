@@ -1,0 +1,23 @@
+{
+  "name": "nari",
+  "version": "0.0.10",
+  "description": "WebRTC open source scalable platform  ",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0",
+    "express":"4.14.1",
+    "socket.io":"1.7.2"
+  },
+  "scripts": {
+    "test": "grunt ",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "WebRTC",
+    "SFU",
+    "SIP"
+  ],
+  "author": "Murugan Pandian",
+  "license": "GPL-3.0"
+}
