@@ -29,7 +29,6 @@ Edit signalling server [URL](https://github.com/murugancmi/nari/blob/master/src/
 grunt 
 node server.js
 ```
-Open bellow two URL if defferent tab
 User 1:
 http://localhost:8080
 
