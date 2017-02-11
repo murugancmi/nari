@@ -23,14 +23,26 @@ sudo apt-get install nodejs git npm nodejs-legacy
 git clone https://github.com/murugancmi/nari.git
 cd nari
 npm install
-grunt 
 ```
+Edit signalling server [URL](https://github.com/murugancmi/nari/blob/master/src/cmiRTC.js#L28)
+```shell
+grunt 
+node server.js
+```
+Open bellow two URL if defferent tab
+
+http://localhost:8080
+http://localhost:8080/murugan
+
+
+Now you can check demo
+
 
 ### Roadmap
-##### Support SFU(progress)
+##### Support SFU
 ##### Support SIP and PSTN
 ##### Support Live Streaming to Facebook and Youtube
-##### Support react-native(Android and IOS)
+##### Support react-native(Android and IOS)(progress)
 ##### Support Cordova(Android and IOS)
 
 
