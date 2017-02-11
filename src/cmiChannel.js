@@ -1,20 +1,9 @@
 
-cmiRTC.prototype.onChannel=function(event){};
-
-
-
-
-
-
-
-
-
-
 /*
  Create Peer Object for RTC
  d-Datachannel
  */
- cmiRTC.prototype.channelpeer=function()
+ nari.prototype.channelpeer=function()
  {
    var self=this;
  self.dpeer = new RTCPeerConnection(self.iceservers);
@@ -22,7 +11,7 @@ cmiRTC.prototype.onChannel=function(event){};
  self.channel= self.dpeer.createDataChannel("telecmi", dataChannelParams);
 //self.channel.binaryType = 'arraybuffer';
 self.channel.onerror = function (error) {
-self.ondatachannel({event:'channel',status:"error",desc:error});
+self.onChannel({event:'channel',status:"error",desc:error});
 };
 
 self.channel.onmessage = function (event) {
@@ -30,11 +19,11 @@ self.channel.onmessage = function (event) {
 };
 
 self.channel.onopen = function () {
-  self.ondatachannel({event:'channel',status:"open"});
+  self.onChannel({event:'channel',status:"open"});
 };
 
 self.channel.onclose = function () {
-  self.ondatachannel({event:'channel',status:"close"});
+  self.onChannel({event:'channel',status:"close"});
 };
  self.dpeer.onicecandidate=function(data){
    if (!data || !data.candidate) return;
@@ -62,7 +51,7 @@ self.channel.onclose = function () {
  }
 
 
- cmiRTC.prototype.remotechannelpeer=function()
+ nari.prototype.remotechannelpeer=function()
  {
    var self=this;
  self.dpeer = new RTCPeerConnection(self.iceservers);
@@ -72,7 +61,7 @@ self.channel.onclose = function () {
      self.channel = event.channel;
      //self.channel.binaryType = 'arraybuffer';
      self.channel.onerror = function (error) {
-       self.ondatachannel({event:'channel',status:"error",desc:error});
+       self.onChannel({event:'channel',status:"error",desc:error});
      };
 
      self.channel.onmessage = function (event) {
@@ -80,11 +69,11 @@ self.channel.onclose = function () {
      };
 
      self.channel.onopen = function () {
-       self.ondatachannel({event:'channel',status:"open"});
+       self.onChannel({event:'channel',status:"open"});
      };
 
      self.channel.onclose = function () {
-  self.ondatachannel({event:'channel',status:"close"});
+  self.onChannel({event:'channel',status:"close"});
      };
 
    }
@@ -116,7 +105,7 @@ self.channel.onclose = function () {
 
 
 
-  cmiRTC.prototype.channeloffer=function()
+  nari.prototype.channeloffer=function()
   {
         var self=this;
         self.channelpeer()
@@ -136,7 +125,7 @@ self.channel.onclose = function () {
   /*
    Create Answer  for receving calls
    */
-   cmiRTC.prototype.channelanswer=function(sdp)
+   nari.prototype.channelanswer=function(sdp)
    {
      var self=this
      self.dpeer.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -158,7 +147,7 @@ self.channel.onclose = function () {
    /*
     Make data call
    */
-  cmiRTC.prototype.dataCall=function(to)
+  nari.prototype.dataCall=function(to)
   {
     var self=this;
     if(!to)
@@ -175,17 +164,17 @@ self.channel.onclose = function () {
   /*
     Receive data channel event
   */
-  cmiRTC.prototype.ondatachannel=function(data){}
+  nari.prototype.onChannel=function(data){}
 
   /*
     Receive  Message
   */
-cmiRTC.prototype.onMSG=function(data){}
+nari.prototype.onMSG=function(data){}
 
 /*
 Send message using data channel
 */
-cmiRTC.prototype.sendMSG=function(data)
+nari.prototype.sendMSG=function(data)
 {
   var self=this;
   if(data)

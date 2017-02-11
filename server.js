@@ -8,14 +8,14 @@ var express=require('express'),
 
 
 
-app.use(express.static(__dirname+'/public'))
-
+//app.use(express.static(__dirname+'/build'))
+app.use(express.static(__dirname+'/src'))
 app.get('/',function(req,res){
-  res.sendFile('pandian.html',{ root: path.join(__dirname, './views') })
+  res.sendFile('pandian.html',{ root:__dirname })
 })
 
 app.get('/murugan',function(req,res){
-  res.sendFile('murugan.html',{ root: path.join(__dirname, './views') })
+  res.sendFile('murugan.html',{ root: __dirname })
 })
 
 

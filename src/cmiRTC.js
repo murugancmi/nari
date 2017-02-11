@@ -6,8 +6,9 @@ window.RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSess
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition ||
     window.msSpeechRecognition || window.oSpeechRecognition;
 
-
-function cmiRTC() {
+var self;
+function nari() {
+  self=this;
     var self = this;
     self.socket = {}
     self.rtc = false;
@@ -18,11 +19,13 @@ function cmiRTC() {
             },
             {
                 'url': 'stun:stun.l.google.com:19302'
-            }
-        ]
-    };
+            }, {
+              url: 'turn: numb.viagenie.ca',
+              credential: '28510351',
+              username:'murugan@telecmi.com'
+            }]};
 
-    var socket = new io('http://127.0.0.1:8989');
+    var socket = new io('http://192.168.0.7:8989');
     /*
      Websocket socket Related Operation for signalling
     */
@@ -177,7 +180,7 @@ function cmiRTC() {
 
                 self.dpeer.setRemoteDescription(new RTCSessionDescription(data.sdp))
             } else if (data.code == 0224) {
-              
+
                 self.dpeer.addIceCandidate(new RTCIceCandidate(data.candidate))
             }
 
@@ -226,7 +229,7 @@ function cmiRTC() {
   Accept incoming call
 */
 
-cmiRTC.prototype.accept = function() {
+nari.prototype.accept = function() {
     var self = this;
     if ((self.to) && (self.media)) {
         self.send({
@@ -245,7 +248,7 @@ cmiRTC.prototype.accept = function() {
 }
 
 
-cmiRTC.prototype.reject = function() {
+nari.prototype.reject = function() {
     var self = this;
     if ((self.to) && (self.media)) {
         self.stopStream();
@@ -269,7 +272,7 @@ cmiRTC.prototype.reject = function() {
   Register with signalling server
   {username: 'uniqueID'}
 */
-cmiRTC.prototype.register = function(username) {
+nari.prototype.register = function(username) {
     var self = this;
 
     if (username) {
@@ -289,7 +292,7 @@ cmiRTC.prototype.register = function(username) {
     {event:String,Status:boolean,desc:String}
     }
 */
-cmiRTC.prototype.onFire = function(event) {};
+nari.prototype.onFire = function(event) {};
 
 /*
   RTC related Event
@@ -297,7 +300,7 @@ cmiRTC.prototype.onFire = function(event) {};
     {event:String,Status:boolean,desc:String}
     }
 */
-cmiRTC.prototype.onRTC = function(event) {};
+nari.prototype.onRTC = function(event) {};
 
 
 
@@ -305,7 +308,7 @@ cmiRTC.prototype.onRTC = function(event) {};
 /*
   RTC related Operation
 */
-cmiRTC.prototype.rtc = function() {
+nari.prototype.rtc = function() {
     var self = this;
     self.rtc = new webkitRTC
 }
@@ -314,7 +317,7 @@ cmiRTC.prototype.rtc = function() {
 /*
   Getuser usermedia audio or video
 */
-cmiRTC.prototype.media = function(audio, video, callback) {
+nari.prototype.media = function(audio, video, callback) {
     var self = this;
     var audio = audio || true;
     var video = video || false;
@@ -342,7 +345,7 @@ cmiRTC.prototype.media = function(audio, video, callback) {
 /*
  Create Peer Object for RTC
  */
-cmiRTC.prototype.peer = function() {
+nari.prototype.peer = function() {
     var self = this;
     self.rtcpeer = new RTCPeerConnection(self.iceservers);
     self.rtcpeer.onicecandidate = function(data) {
@@ -389,7 +392,7 @@ cmiRTC.prototype.peer = function() {
 
 
 //End Peer
-cmiRTC.prototype.endCall = function() {
+nari.prototype.endCall = function() {
     var self = this;
     if ((self.to) && (self.media)) {
         self.stopStream();
@@ -414,7 +417,7 @@ cmiRTC.prototype.endCall = function() {
 /*
  Create offer for making calls
  */
-cmiRTC.prototype.offer = function() {
+nari.prototype.offer = function() {
     var self = this;
 
     var audio = self.mediain.audio || true;
@@ -461,7 +464,7 @@ cmiRTC.prototype.offer = function() {
 /*
  Create Answer  for receving calls
  */
-cmiRTC.prototype.answer = function(sdp) {
+nari.prototype.answer = function(sdp) {
     var self = this
     self.rtcpeer.setRemoteDescription(new RTCSessionDescription(sdp));
     self.rtcpeer.createAnswer(function(answer) {
@@ -499,21 +502,22 @@ cmiRTC.prototype.answer = function(sdp) {
 /*
 Remote stream
 */
-cmiRTC.prototype.onremotestream = function(stream) {
+
+nari.prototype.onremotestream = function(stream) {
 
 }
 
 /*
 Localstream stream
 */
-cmiRTC.prototype.onlocalstream = function(stream) {
+nari.prototype.onlocalstream = function(stream) {
 
 }
 
 /*
  Make Audio Call
 */
-cmiRTC.prototype.audioCall = function(to) {
+nari.prototype.audioCall = function(to) {
     var self = this;
     if (!to) {
         self.onRTC({
@@ -553,7 +557,7 @@ cmiRTC.prototype.audioCall = function(to) {
     })
 }
 
-cmiRTC.prototype.videoCall = function(to) {
+nari.prototype.videoCall = function(to) {
     var self = this;
     if (!to) {
         self.onRTC({
@@ -597,7 +601,7 @@ cmiRTC.prototype.videoCall = function(to) {
 /*
 Stop media devices stream
 */
-cmiRTC.prototype.stopStream = function() {
+nari.prototype.stopStream = function() {
     var self = this;
     if (self.localstream) {
         self.localstream.getTracks().forEach(function(track) {
@@ -610,7 +614,7 @@ cmiRTC.prototype.stopStream = function() {
 /*
 Hanghup Call
 */
-cmiRTC.prototype.bye = function() {
+nari.prototype.bye = function() {
     var self = this;
     self.endCall()
 }
@@ -620,18 +624,19 @@ cmiRTC.prototype.bye = function() {
 Pause and Play video call
 */
 
-cmiRTC.prototype.videotoggle = function() {
+nari.prototype.videotoggle = function() {
+  var self=this
     if (!self.localstream) {
         return
     }
-    if (!self.localstream.videoTracks[0]) {
+    if (!self.localstream.getVideoTracks()) {
         return
     }
 
-    if (self.localstream.videoTracks[0].enabled) {
-        self.localstream.videoTracks[0].enabled = false
+    if (self.localstream.getVideoTracks()[0].enabled) {
+        self.localstream.getVideoTracks()[0].enabled = false
     } else {
-        self.localstream.videoTracks[0].enabled = true
+        self.localstream.getVideoTracks()[0].enabled = true
     }
 }
 
@@ -641,16 +646,20 @@ cmiRTC.prototype.videotoggle = function() {
 Mute and Unmute Audio call
 */
 
-cmiRTC.prototype.audiotoggle = function() {
+nari.prototype.audiotoggle = function() {
+  var self=this
+
     if (!self.localstream) {
         return
     }
-    if (!self.localstream.audioTracks[0]) {
+    if (!self.localstream.getAudioTracks()) {
         retrun
     }
-    if (self.localstream.audioTracks[0].enabled) {
-        self.localstream.audioTracks[0].enabled = false
+    if (self.localstream.getAudioTracks()[0].enabled) {
+
+        self.localstream.getAudioTracks()[0].enabled = false
     } else {
-        self.localstream.audioTracks[0].enabled = true
+
+        self.localstream.getAudioTracks()[0].enabled = true
     }
 }

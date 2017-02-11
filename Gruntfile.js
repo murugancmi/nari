@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         uglify: {
             "my_target": {
                 files: {
-                    'public/lib/dest/nari.min.js': ['public/js/socket.io.js', 'public/js/cmiRTC.js','public/js/cmiChannel.js']
+                    'src/nari.min.js': ['src/socket.io.js', 'src/cmiRTC.js','src/cmiChannel.js']
 
                 }
             }
