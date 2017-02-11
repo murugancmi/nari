@@ -30,8 +30,10 @@ grunt
 node server.js
 ```
 Open bellow two URL if defferent tab
-
+User 1:
 http://localhost:8080
+
+User 2:
 http://localhost:8080/murugan
 
 
