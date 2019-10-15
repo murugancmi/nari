@@ -11,10 +11,12 @@
 -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
     <script src="http://liksu.github.io/ng-chatbox/chatbox.min.js"></script>
-    <!-- <script src="socket.io.js"></script>
+    <!--
+    <script src="socket.io.js"></script>
     <script src="cmiRTC.js"></script>
-    <script src="cmiChannel.js"></script> -->
-     <script src="nari.min.js"></script> 
+    <script src="cmiChannel.js"></script>
+     -->
+    <script src="nari.min.js"></script>
     <script>
         angular.module('telecmi', ['ngChatbox']).controller('homeController', function($scope) {
             $scope.messages = [];
@@ -23,17 +25,18 @@
                 telecmi.sendMSG({
                     msg: $scope.msg
                 })
-                $scope.msg=null;
+                $scope.msg = null;
             };
 
             var telecmi = new nari();
             telecmi.onFire = function(event) {
+                console.log(event)
 
             }
 
             telecmi.onRTC = function(event) {
 
-
+                console.log(event)
                 if (event.event == 'invite') {
                     telecmi.accept();
                 }

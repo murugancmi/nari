@@ -1,113 +1,109 @@
 <html>
+
 <head>
-  <title>
-    Pandian
-  </title>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-  <script src="http://liksu.github.io/ng-chatbox/chatbox.min.js"></script>
-  <!-- <script src="socket.io.js"></script>
-  <script src="cmiRTC.js"></script>
-  <script src="cmiChannel.js"></script> -->
-  <script src="nari.min.js"></script> 
-  <script>
+    <title>
+        Pandian
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="http://liksu.github.io/ng-chatbox/chatbox.min.js"></script>
+    <!-- 
+    <script src="socket.io.js"></script>
+    <script src="cmiRTC.js"></script>
+    <script src="cmiChannel.js"></script>
+ -->
+    <script src="nari.min.js"></script>
+    <script>
+        angular.module('telecmi', ['ngChatbox']).controller('homeController', function($scope) {
+            $scope.messages = [];
 
-
-angular.module('telecmi', ['ngChatbox']).controller('homeController', function($scope) {
-	$scope.messages = [];
-
-	$scope.sendmsg= function() { telecmi.sendMSG({msg:$scope.msg})
-$scope.msg="";
- };
-
-
-
-  var telecmi=new nari();
-  telecmi.onFire=function(event)
-  {
-       console.error(event)
-  }
-
-  telecmi.onRTC=function(event)
-  {
-
-  }
-
-telecmi.onChannel=function(event)
-{
-console.log(event)
-}
-
-telecmi.onMSG=function(data)
-{
-  $scope.$apply(function(){
-    $scope.messages.push({
-time: new Date().toISOString().replace(/T/, ' ').substr(0, 19),
-text:data.msg,
-own: Math.random() > 0.5 ? 'their' : 'mine'
-});
-  });
-}
-
-
-  telecmi.onlocalstream=function(stream)
-  {
-
-  }
-
-
-  telecmi.onremotestream=function(stream)
-  {
-
-    var remote=document.getElementById('remote')
-    var src=URL.createObjectURL(stream.stream);
-    remote.src=src;
-  }
-  $scope.call=function()
-  {
-
-    telecmi.videoCall('murugan');
-  }
-
-  $scope.datacall=function()
-  {
-
-    telecmi.dataCall('murugan');
-  }
-
-
- $scope.vt=function()
- {
-   telecmi.videotoggle();
- }
- $scope.at=function()
- {
-
-   telecmi.audiotoggle();
- }
-
- function send()
- {
-   telecmi.sendMSG({msg:$scope.msg})
- }
+            $scope.sendmsg = function() {
+                telecmi.sendMSG({
+                    msg: $scope.msg
+                })
+                $scope.msg = "";
+            };
 
 
 
- telecmi.register('pandian')
-});
+            var telecmi = new nari();
+            telecmi.onFire = function(event) {
+                console.error(event)
+            }
 
-  </script>
+            telecmi.onRTC = function(event) {
+                console.error(event)
+            }
+
+            telecmi.onChannel = function(event) {
+                console.log(event)
+            }
+
+            telecmi.onMSG = function(data) {
+                $scope.$apply(function() {
+                    $scope.messages.push({
+                        time: new Date().toISOString().replace(/T/, ' ').substr(0, 19),
+                        text: data.msg,
+                        own: Math.random() > 0.5 ? 'their' : 'mine'
+                    });
+                });
+            }
+
+
+            telecmi.onlocalstream = function(stream) {
+
+            }
+
+
+            telecmi.onremotestream = function(stream) {
+
+                var remote = document.getElementById('remote')
+                var src = URL.createObjectURL(stream.stream);
+                remote.src = src;
+            }
+            $scope.call = function() {
+
+                telecmi.videoCall('murugan');
+            }
+
+            $scope.datacall = function() {
+
+                telecmi.dataCall('murugan');
+            }
+
+
+            $scope.vt = function() {
+                telecmi.videotoggle();
+            }
+            $scope.at = function() {
+
+                telecmi.audiotoggle();
+            }
+
+            function send() {
+                telecmi.sendMSG({
+                    msg: $scope.msg
+                })
+            }
+
+
+
+            telecmi.register('pandian')
+        });
+    </script>
 </head>
+
 <body ng-app="telecmi" ng-controller="homeController">
-  <video id="local" muted="true" autoplay="true"></video>
-  <button ng-click="call()">Audio Call</button>
-  <button ng-click="datacall()">data Call</button>
-  <button onclick="send()">Send</button>
-  <button ng-click="vt()">VT</button>
-  <button ng-click="at()">AT</button>
-  <video id="remote" autoplay="true"></video>
-  <ng-chatbox ng-model="messages"></ng-chatbox>
-	<br>
-  <textarea ng-model="msg"></textarea>
-	<button ng-click="sendmsg()">Send</button>
+    <video id="local" muted="true" autoplay="true"></video>
+    <button ng-click="call()">Audio Call</button>
+    <button ng-click="datacall()">data Call</button>
+    <button onclick="send()">Send</button>
+    <button ng-click="vt()">VT</button>
+    <button ng-click="at()">AT</button>
+    <video id="remote" autoplay="true"></video>
+    <ng-chatbox ng-model="messages"></ng-chatbox>
+    <br>
+    <textarea ng-model="msg"></textarea>
+    <button ng-click="sendmsg()">Send</button>
 </body>
+
 </html>

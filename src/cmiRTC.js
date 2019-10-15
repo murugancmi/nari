@@ -7,8 +7,9 @@ window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogn
     window.msSpeechRecognition || window.oSpeechRecognition;
 
 var self;
+
 function nari() {
-  self=this;
+    self = this;
     var self = this;
     self.socket = {}
     self.rtc = false;
@@ -20,12 +21,14 @@ function nari() {
             {
                 'url': 'stun:stun.l.google.com:19302'
             }, {
-              url: 'turn: numb.viagenie.ca',
-              credential: '28510351',
-              username:'murugan@telecmi.com'
-            }]};
+                url: 'turn: numb.viagenie.ca',
+                credential: '28510351',
+                username: 'murugan@telecmi.com'
+            }
+        ]
+    };
 
-    var socket = new io('http://192.168.0.7:8989');
+    var socket = new io('http://192.168.1.5:8989');
     /*
      Websocket socket Related Operation for signalling
     */
@@ -33,23 +36,23 @@ function nari() {
 
         //Socket connect event
         socket.on('connect', function() {
-            self.socket = socket;
-            self.onFire({
-                event: 'connect',
-                status: true
+                self.socket = socket;
+                self.onFire({
+                    event: 'connect',
+                    status: true
+                })
+                self.socketRegister(username);
             })
-            self.socketRegister(username);
-        })
-        //socket disconnect event
+            //socket disconnect event
         socket.on('disconnect', function() {
-            self.socket = {};
-            socket.connect()
-            self.onFire({
-                event: 'disconnected',
-                status: true
+                self.socket = {};
+                socket.connect()
+                self.onFire({
+                    event: 'disconnected',
+                    status: true
+                })
             })
-        })
-        //socket error event
+            //socket error event
         socket.on('error', function() {
             self.socket = {};
             socket.connect();
@@ -61,7 +64,6 @@ function nari() {
 
         //user register success fully
         socket.on('ack', function(data) {
-
             if (data.code == 200) {
                 self.socket.registered = true;
                 self.onFire({
@@ -211,7 +213,7 @@ function nari() {
         if (username) {
             self.username = username;
             socket.emit('register', {
-                username: username
+                userid: username
             })
 
         } else {
@@ -625,7 +627,7 @@ Pause and Play video call
 */
 
 nari.prototype.videotoggle = function() {
-  var self=this
+    var self = this
     if (!self.localstream) {
         return
     }
@@ -647,7 +649,7 @@ Mute and Unmute Audio call
 */
 
 nari.prototype.audiotoggle = function() {
-  var self=this
+    var self = this
 
     if (!self.localstream) {
         return
