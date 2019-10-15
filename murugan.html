@@ -67,8 +67,8 @@
                 console.log('remote stream')
                 console.error(stream)
                 var remote = document.getElementById('remote')
-                var src = URL.createObjectURL(stream.stream);
-                remote.src = src;
+
+                remote.srcObject = stream.stream;
             }
 
             function send() {
@@ -92,9 +92,9 @@
 </head>
 
 <body ng-app="telecmi" ng-controller="homeController">
-    <video id="local" muted="true" autoplay="true"></video>
+    <video id="local" autoplay muted></video>
     <button ng-click="bye()">Hangup</button>
-    <video id="remote" autoplay="true"></video>
+    <video id="remote" playsinline autoplay></video>
     <ng-chatbox ng-model="messages"></ng-chatbox>
     <br>
     <textarea ng-model="msg"></textarea>
